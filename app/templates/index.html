@@ -10,8 +10,7 @@
     <h1>Calorie Tracker</h1>
     <div id="app">
         <p>Welcome, {{ username }}!</p>
-
-        <form id="calorie-form">
+        <form id="calorie-form" method="post" action="/calories">
             <label for="food">Food:</label>
             <input type="text" id="food" name="food" required>
             <label for="calories">Calories:</label>
@@ -20,8 +19,10 @@
             <input type="date" id="date" name="date" required>
             <button type="submit">Add Entry</button>
         </form>
-        <div id="message"></div>
-        <div id="popup" style="display:none;">Calorie added successfully!</div>
+        <!-- Optionally, show messages from Flask -->
+        {% if message %}
+            <div id="message">{{ message }}</div>
+        {% endif %}
 
         <h2>Calorie Entries</h2>
         <table id="calories-table">
@@ -30,15 +31,29 @@
                     <th>Date</th>
                     <th>Food</th>
                     <th>Calories</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Entries will be added here -->
+                {% for entry in user_calories %}
+                <tr>
+                    <td>{{ entry['date'] }}</td>
+                    <td>{{ entry['food'] }}</td>
+                    <td>{{ entry['calories'] }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_calorie_entry', entry_id=entry['_id']) }}" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                        <form action="{{ url_for('edit_calorie_entry', entry_id=entry['_id']) }}" method="get">
+                            <button type="submit">Edit</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
-        
-        <div id="total-calories">Total Calories: 0</div>
+
+        <div id="total-calories">Total Calories: {{ total_calories }}</div>
     </div>
-    <script src="static/script.js"></script>
 </body>
 </html>
