@@ -81,6 +81,11 @@ def calories():
     else:
         user_calories = list(db.calories.find({"username": session['username']}, {'_id': 0}))
         return jsonify(user_calories)
+    
+@app.route('/setup_weight', methods=['GET', 'POST'])
+def setup_weight():
+    #
+    return
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
