@@ -13,7 +13,7 @@ app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 # Load MongoDB credentials from environment variables
 username = os.getenv("MONGO_USERNAME")
 password = os.getenv("MONGO_PASSWORD")
-uri = os.getenv("MONGO_URI").replace('<username>', username).replace('<password>', password)
+uri = os.getenv("MONGO_URI").replace('<username>', username).replace('<password>', str(password))
 
 # Connect to MongoDB
 client = MongoClient(uri)
@@ -82,6 +82,5 @@ def calories():
         user_calories = list(db.calories.find({"username": session['username']}, {'_id': 0}))
         return jsonify(user_calories)
 
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
