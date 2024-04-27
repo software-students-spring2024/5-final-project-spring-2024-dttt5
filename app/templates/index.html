@@ -10,6 +10,17 @@
     <h1>Calorie Tracker</h1>
     <div id="app">
         <p>Welcome, {{ username }}!</p>
+
+        <h2>Set Your Weight Goals</h2>
+        <form id="weight-form" method="post" action="/setup_weight">
+            <label for="current_weight">Current Weight:</label>
+            <input type="number" id="current_weight" name="current_weight" required>
+            <label for="target_weight">Target Weight:</label>
+            <input type="number" id="target_weight" name="target_weight" required>
+            <button type="submit">Update Weight</button>
+        </form>
+
+        <h2>Add Calorie Entry</h2>
         <form id="calorie-form" method="post" action="/calories">
             <label for="food">Food:</label>
             <input type="text" id="food" name="food" required>
@@ -54,6 +65,7 @@
         </table>
 
         <div id="total-calories">Total Calories: {{ total_calories }}</div>
+        <div id="calorie-deficit">Total Calorie Deficit Needed: {{ user_info.total_calorie_deficit_needed }}</div>
     </div>
 </body>
 </html>
