@@ -78,11 +78,11 @@ def calories():
             # get current user information for calorie management
             user_info = user_collection.find_one({"username": session['username']})
             if user_info and 'total_calorie_deficit_needed' in user_info:
-                base_calorie_intake = 2500
-                daily_deficit = base_calorie_intake - data['calories']
-                new_total_deficit_needed = user_info['total_calorie_deficit_needed'] - daily_deficit
+                base_intake = 2500
+                daily_deficit = base_intake - data['calories']
+                new_total_deficit = user_info['total_calorie_deficit_needed'] - daily_deficit
                 # Update the total calorie deficit needed
-                user_collection.update_one({"username": session['username']}, {"$set": {"total_calorie_deficit_needed": new_total_deficit_needed}})
+                user_collection.update_one({"username": session['username']}, {"$set": {"total_calorie_deficit_needed": new_total_deficit}})
 
             return redirect(url_for('index'))
         except Exception as e:
@@ -99,14 +99,14 @@ def setup_weight():
         return jsonify({'error': 'User not logged in'}), 401
     
     try:
-        cur_weight = float(request.json['current_weight'])
+        current_weight = float(request.json['current_weight'])
         target_weight = float(request.json['target_weight'])
         total_calorie_deficit_needed = (current_weight - target_weight) * 3500
         
         db.users.update_one(
             {"username": session['username']},
             {"$set": {
-                "current_weight": cur_weight,
+                "current_weight": current_weight,
                 "target_weight": target_weight,
                 "total_calorie_deficit_needed": total_calorie_deficit_needed
             }}
