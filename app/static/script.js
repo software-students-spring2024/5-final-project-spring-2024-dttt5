@@ -44,6 +44,9 @@ function updateCaloriesTable() {
             foodCell.textContent = entry.food;
             let caloriesCell = row.insertCell(2);
             caloriesCell.textContent = entry.calories;
+            let actionCell = row.insertCell(3);
+            actionCell.innerHTML = `<button onclick="editCalorie('${entry._id}')">Edit</button>
+                                    <button onclick="deleteCalorie('${entry._id}')">Delete</button>`;
         });
         updateTotalCalories();
     })
@@ -58,4 +61,47 @@ function updateTotalCalories() {
         document.getElementById('total-calories').textContent = `Total Calories: ${totalCalories}`;
     })
     .catch(error => console.error('Error:', error));
+}   
+
+function editCalorie(entryId) {
+    const food = prompt("Enter new food:");
+    const calories = prompt("Enter new calorie count:");
+    const date = prompt("Enter new date:");
+    if (food && calories && date) {
+        fetch(`/calories/edit/${entryId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ food, calories, date })
+        })
+        .then(response => response.json())
+        .then(data => {
+            showPopup("Calorie entry updated successfully!");
+            updateCaloriesTable();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('message').innerText = 'Failed to update entry!';
+        });
+    }
+}
+
+function deleteCalorie(entryId) {
+    if (confirm("Are you sure you want to delete this entry?")) {
+        console.log(entryId)
+        fetch(`/calories/delete/${entryId}`, {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            showPopup("Calorie entry deleted successfully!");
+            updateCaloriesTable();
+        })
+        .catch(error => {
+            console.log(entryId)
+            console.error('Error:', error);
+            document.getElementById('message').innerText = 'Failed to delete entry!';
+        });
+    }
 }

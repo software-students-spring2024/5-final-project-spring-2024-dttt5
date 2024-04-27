@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Calorie Entry</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Budget Tracker</h1>
+        <div class="dashboard-nav">
+            <a href="/" class="button-link">Home</a>
+            <a href="/logout" class="button-link">Logout</a>
+        </div>
+    </header>
+    <h2 style="text-align: center;">Edit Calorie Entry</h2>
+    <form action="/calories/edit/{{ entry._id }}" method="post">
+        <input type="text" name="food" value="{{ entry.food }}" required style="width: 90%; margin: 10px auto; display: block;">
+        <input type="number" name="calories" value="{{ entry.calories }}" required style="width: 90%; margin: 10px auto; display: block;">
+        <input type="date" name="date" value="{{ entry.date }}" required style="width: 90%; margin: 10px auto; display: block;">
+        <button type="submit" style="width: 90%; margin: 10px auto; display: block;">Update Entry</button>
+    </form>
+    <a href="/" class="button-link" style="width: 90%; margin: 20px auto; display: block; text-align: center;">Back to Home</a>
+</body>
+</html>
