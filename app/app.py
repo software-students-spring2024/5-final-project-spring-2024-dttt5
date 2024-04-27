@@ -65,6 +65,7 @@ def calories():
         return jsonify({'error': 'User not logged in'}), 401
 
     if request.method == 'POST':
+        user_collection = db.users
         try:
             data = {
                 "username": session['username'],
@@ -73,6 +74,16 @@ def calories():
                 "date": request.form['date']
             }
             db.calories.insert_one(data)
+
+            # get current user information for calorie management
+            user_info = user_collection.find_one({"username": session['username']})
+            if user_info and 'total_calorie_deficit_needed' in user_info:
+                base_calorie_intake = 2500
+                daily_deficit = base_calorie_intake - data['calories']
+                new_total_deficit_needed = user_info['total_calorie_deficit_needed'] - daily_deficit
+                # Update the total calorie deficit needed
+                user_collection.update_one({"username": session['username']}, {"$set": {"total_calorie_deficit_needed": new_total_deficit_needed}})
+
             return redirect(url_for('index'))
         except Exception as e:
             print(e)
@@ -84,8 +95,26 @@ def calories():
     
 @app.route('/setup_weight', methods=['GET', 'POST'])
 def setup_weight():
-    #
-    return
+    if 'username' not in session:
+        return jsonify({'error': 'User not logged in'}), 401
+    
+    try:
+        cur_weight = float(request.json['current_weight'])
+        target_weight = float(request.json['target_weight'])
+        total_calorie_deficit_needed = (current_weight - target_weight) * 3500
+        
+        db.users.update_one(
+            {"username": session['username']},
+            {"$set": {
+                "current_weight": cur_weight,
+                "target_weight": target_weight,
+                "total_calorie_deficit_needed": total_calorie_deficit_needed
+            }}
+        )
+        return jsonify({'message': 'Weight setup updated'}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to setup weight'}), 500
 
 @app.route('/calories/delete/<entry_id>', methods=['POST'])
 def delete_calorie_entry(entry_id):
