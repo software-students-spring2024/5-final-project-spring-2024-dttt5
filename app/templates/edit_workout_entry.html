@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Workout Entry</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <h1>Edit Workout Entry</h1>
+    <div id="app">
+        <form method="post" action="{{ url_for('edit_workout_entry', entry_id=entry['_id']) }}">
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required value="{{ entry['description'] }}">
+
+            <label for="calories_burned">Calories Burned:</label>
+            <input type="number" id="calories_burned" name="calories_burned" required value="{{ entry['calories_burned'] }}">
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required value="{{ entry['date'] }}">
+            
+            <button type="submit">Update Entry</button>
+        </form>
+    </div>
+</body>
+</html>
