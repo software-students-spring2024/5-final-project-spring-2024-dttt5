@@ -50,11 +50,11 @@ palette:
 }
 
 .indexHeader {
-    color: #d1f7ff;
+    color: #05d9e8;
 }
 
-#calories-table {
-    background-color: #005678;
+#calories-table, #workouts-table {
+    background-color: #01012b;
     color: #05d9e8;
 }
 
@@ -141,7 +141,7 @@ th, td {
 }
 
 th {
-    background-color: #d1f7ff;
+    background-color: #005678;
 }
 
 /* Utility classes */
