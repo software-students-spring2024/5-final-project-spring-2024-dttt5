@@ -44,13 +44,17 @@ palette:
 */
 
 .welcomeMsg{
-    background-color: #005678;
+    color: #ff2a6d;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.indexHeader {
     color: #d1f7ff;
-    
 }
 
 #calories-table {
-    background-color: #d1f7ff;
+    background-color: #005678;
     color: #05d9e8;
 }
 
@@ -137,7 +141,7 @@ th, td {
 }
 
 th {
-    background-color: #f8f8f8;
+    background-color: #d1f7ff;
 }
 
 /* Utility classes */
@@ -197,7 +201,7 @@ a:hover {
     font-family: Arial, Helvetica, sans-serif;
     border: 2px solid #05d9e8;
     color: #d1f7ff;
-    width: 80px;
+    width: 70px;
 }
 
 .addButtons {
