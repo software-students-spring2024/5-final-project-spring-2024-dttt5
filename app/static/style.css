@@ -45,7 +45,7 @@ palette:
 
 .welcomeMsg{
     color: #ff2a6d;
-    font-size: 20px;
+    font-size: 40px;
     font-family: Arial, sans-serif;
 }
 
@@ -56,6 +56,9 @@ palette:
 #calories-table, #workouts-table {
     background-color: #01012b;
     color: #05d9e8;
+}
+#total-calories {
+    color: #ff2a6d;
 }
 
 h1 {
@@ -137,7 +140,7 @@ table {
 th, td {
     text-align: left;
     padding: 12px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #005678;
 }
 
 th {
