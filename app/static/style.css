@@ -13,9 +13,24 @@ body {
    
 }
 
+.borderHeader {
+    height: 100px;
+    width: 100vw;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  
+
 .inputStyle {
     background-color:#d1f7ff;
     color: #005678;
+    font-family: Arial, sans-serif;
+}
+
+.bottomText {
+    color: #d1f7ff;
     font-family: Arial, sans-serif;
 }
 
@@ -31,11 +46,16 @@ palette:
 h1 {
     color: #d1f7ff;
     text-align: center;
-    border: 3px double #ff2a6d;
+    /* border: 3px double #ff2a6d; */
     text-shadow: 2px 0 #05d9e8, -2px 0 #05d9e8, 0 2px #05d9e8, 0 -2px #05d9e8,
                1px 1px #05d9e8, -1px -1px #05d9e8, 1px -1px #05d9e8, -1px 1px #05d9e8;
     background-color: #01012b;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    margin: auto 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
 }
 
@@ -119,7 +139,7 @@ th {
 
 /* Links */
 a {
-    color: #0077cc;
+    color: #ff2a6d;
 }
 
 a:hover {
@@ -162,6 +182,7 @@ a:hover {
     justify-content: center;
     align-items: center;
     background-color: #ff2a6d;
+    
 
 }
 
@@ -174,6 +195,7 @@ a:hover {
     justify-content: center;
     align-items: center;
     background-color: #ff2a6d;
+    border-radius: 8px;
   }
   
 .loginRegButton {
@@ -185,6 +207,7 @@ a:hover {
     justify-content: center;
     align-items: center;
     background-color: #ff2a6d;
+    border-radius: 8px;
 }
 
 
