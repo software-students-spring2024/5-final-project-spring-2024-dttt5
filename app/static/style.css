@@ -47,6 +47,8 @@ palette:
     color: #ff2a6d;
     font-size: 40px;
     font-family: Arial, sans-serif;
+    text-shadow: 2px 0 #d1f7ff, -2px 0 #d1f7ff, 0 2px #d1f7ff, 0 -2px #d1f7ff,
+    1px 1px #d1f7ff, -1px -1px #d1f7ff, 1px -1px #d1f7ff, -1px 1px #d1f7ff;
 }
 
 .indexHeader {
