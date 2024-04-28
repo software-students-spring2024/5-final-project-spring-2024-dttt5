@@ -21,8 +21,10 @@ db = client['caloriedb']
 def index():
     if 'username' in session:
         user_calories = list(db.calories.find({"username": session['username']}, {'_id': 1, 'food': 1, 'calories': 1, 'date': 1}))
+        user_workouts = list(db.workouts.find({"username": session['username']}, {'_id': 1, 'description': 1, 'calories_burned': 1, 'date': 1}))
         total_calories = sum(entry['calories'] for entry in user_calories)
-        return render_template('index.html', username=session['username'], user_calories=user_calories, total_calories=total_calories)
+        total_burned = sum(entry['calories_burned'] for entry in user_workouts)
+        return render_template('index.html', username=session['username'], user_calories=user_calories, total_calories=total_calories-total_burned, total_burned=total_burned, user_workouts=user_workouts)
     return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -113,6 +115,62 @@ def edit_calorie_entry(entry_id):
         except Exception as e:
             print(e)
             return jsonify({'error': 'Failed to edit calorie entry'}), 500
+
+@app.route('/workouts', methods=['GET', 'POST'])
+def workouts():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        try:
+            data = {
+                "username": session['username'],
+                "description": request.form['description'],
+                "calories_burned": int(request.form['calories_burned']),
+                "date": request.form['date']
+            }
+            db.workouts.insert_one(data)
+            return redirect(url_for('index'))
+        except Exception as e:
+            print(e)
+            return jsonify({'error': 'Failed to add workout'}), 500
+
+    else:
+        user_workouts = list(db.workouts.find({"username": session['username']}, {'_id': 1, 'description': 1, 'calories_burned': 1, 'date': 1}))
+        return jsonify(user_workouts)
+
+@app.route('/workouts/delete/<entry_id>', methods=['POST'])
+def delete_workout_entry(entry_id):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    db.workouts.delete_one({"_id": ObjectId(entry_id), "username": session['username']})
+    return redirect(url_for('index'))
+
+@app.route('/workouts/edit/<entry_id>', methods=['GET', 'POST'])
+def edit_workout_entry(entry_id):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    if request.method == 'GET':
+        entry = db.workouts.find_one({"_id": ObjectId(entry_id), "username": session['username']})
+        if entry:
+            return render_template('edit_workout_entry.html', entry=entry)
+        else:
+            return 'Entry not found', 404
+    elif request.method == 'POST':
+        try:
+            update_data = {
+                "description": request.form['description'],
+                "calories_burned": int(request.form['calories_burned']),
+                "date": request.form['date']
+            }
+            db.workouts.update_one({"_id": ObjectId(entry_id), "username": session['username']}, {"$set": update_data})
+            return redirect(url_for('index'))
+        except Exception as e:
+            print(e)
+            return jsonify({'error': 'Failed to edit workout entry'}), 500
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
