@@ -9,8 +9,12 @@
 <body>
     <h1>Calorie Tracker</h1>
     <div id="app">
+
+        <div class="spacer"></div>
+
         <p>Welcome, {{ username }}!</p>
         <form id="calorie-form" method="post" action="/calories">
+            <h3>Add Food</h3>
             <label for="food">Food:</label>
             <input type="text" id="food" name="food" required>
             <label for="calories">Calories:</label>
@@ -23,6 +27,9 @@
         {% if message %}
             <div id="message">{{ message }}</div>
         {% endif %}
+
+        <div class="spacer"></div>
+        <div class="spacer"></div>
 
         <h2>Calorie Entries</h2>
         <table id="calories-table">
@@ -53,8 +60,12 @@
             </tbody>
         </table>
 
+        <div class="spacer"></div>
+        <div class="spacer"></div>
+
         <!-- Workout Entry Form -->
         <form id="workout-form" method="post" action="/workouts">
+            <h3>Add Workout</h3>
             <label for="description">Workout:</label>
             <input type="text" id="description" name="description" required>
             <label for="calories_burned">Calories Lost:</label>
@@ -63,6 +74,9 @@
             <input type="date" id="date" name="date" required>
             <button type="submit">Add Workout</button>
         </form>
+
+        <div class="spacer"></div>
+        <div class="spacer"></div>
 
         <h2>Workout Entries</h2>
         <table id="workouts-table">
@@ -92,6 +106,9 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        <div class="spacer"></div>
+        <div class="spacer"></div>
 
         <div id="total-calories">Total Calories: {{ total_calories }}</div>
     </div>
