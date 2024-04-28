@@ -48,22 +48,7 @@ select {
     box-sizing: border-box; /* includes padding and border in element's width */
 }
 
-button {
-    width: 70px;
-    height: 20px;
 
-    /* background-color: #0056b3;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px; */
-}
 
 .delEditForm {
     padding: 0;
