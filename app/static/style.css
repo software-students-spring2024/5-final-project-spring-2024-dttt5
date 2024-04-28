@@ -44,11 +44,11 @@ palette:
 */
 
 .welcomeMsg{
-    color: #ff2a6d;
+    color: #faa7c1;
     font-size: 40px;
     font-family: Arial, sans-serif;
-    text-shadow: 2px 0 #d1f7ff, -2px 0 #d1f7ff, 0 2px #d1f7ff, 0 -2px #d1f7ff,
-    1px 1px #d1f7ff, -1px -1px #d1f7ff, 1px -1px #d1f7ff, -1px 1px #d1f7ff;
+    text-shadow: 2px 0 #ff2a6d, -2px 0 #ff2a6d, 0 2px #ff2a6d, 0 -2px #ff2a6d,
+    1px 1px #ff2a6d, -1px -1px #ff2a6d, 1px -1px #ff2a6d, -1px 1px #ff2a6d;
 }
 
 .indexHeader {
