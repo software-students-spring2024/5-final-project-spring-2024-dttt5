@@ -4,13 +4,191 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Workout Entry</title>
-    <link rel="stylesheet" href="static/style.css">
+    <!-- <link rel="stylesheet" href="static/style.css"> -->
     <style>
+        /* General body styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        
         h1 {
+            color: #0056b3;
+            text-align: center;
+            border: 5px solid red;
+        }
+        
+        h2 {
             text-align: center;
         }
         
-    </style>
+        h3 {
+            text-align: center;
+        }
+        
+        /* Form styling */
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box; /* includes padding and border in element's width */
+        }
+        
+        button {
+            width: 70px;
+            height: 20px;
+        
+            /* background-color: #0056b3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px; */
+        }
+        
+        .delEditForm {
+            padding: 0;
+            margin: 0;
+            width: 0;
+            height: 20px; 
+            
+        }
+        
+        button:hover {
+            background-color: #004494;
+        }
+        
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        th {
+            background-color: #f8f8f8;
+        }
+        
+        /* Utility classes */
+        .hidden {
+            display: none;
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        /* Links */
+        a {
+            color: #0077cc;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Messages and popups */
+        #message {
+            background-color: #dff0d8;
+            color: #3c763d;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            border: 1px solid #d6e9c6;
+        }
+        
+        #popup {
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            display: none; /* Hidden by default */
+        }
+        
+        .spacer {
+            height: 30px;
+        }
+        
+        .delEditButton{
+            border-radius: 8px;
+            height: 30px;
+            margin: auto 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        
+        }
+        
+        .addButtons {
+            width: 100%;
+            padding: 20px;
+            margin: auto 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          
+        .loginRegButton {
+            width: 100%;
+            padding: 20px;
+            margin: auto 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .updateButton {
+            width: 100%;
+            padding: 20px;
+            margin: auto 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+                
+            </style>
 </head>
 <body>
     <h1>Calorie Tracker</h1>
@@ -25,8 +203,8 @@
 
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required value="{{ entry['date'] }}">
-            
-            <button type="submit">Update Entry</button>
+            <div class="spacer"></div>
+            <button type="submit" class="updateButton">Update Entry</button>
         </form>
     </div>
 </body>
