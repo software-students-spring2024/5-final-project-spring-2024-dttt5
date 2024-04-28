@@ -14,6 +14,7 @@ body {
     top: 0;
     left: 0;
     z-index: 999;
+    
   }
   
   
@@ -59,26 +60,25 @@ palette:
 }
 
 h1 {
-    color: #d1f7ff;
+    color: #05d9e8;
     text-align: center;
     /* border: 3px double #ff2a6d; */
-    text-shadow: 2px 0 #05d9e8, -2px 0 #05d9e8, 0 2px #05d9e8, 0 -2px #05d9e8,
+    /* text-shadow: 2px 0 #05d9e8, -2px 0 #05d9e8, 0 2px #05d9e8, 0 -2px #05d9e8,
                1px 1px #05d9e8, -1px -1px #05d9e8, 1px -1px #05d9e8, -1px 1px #05d9e8;
-               background: rgb(1,1,43);
-               background: linear-gradient(0deg, rgba(1,1,43,1) 50%, rgba(0,86,120,1) 100%); 
-    letter-spacing: 3px;
+               background: rgb(0,86,120);
+               background: radial-gradient(circle, rgba(0,86,120,1) 50%, rgba(1,1,43,1) 100%);  */
+    /* letter-spacing: 3px; */
     margin: auto 0;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    background-color: #005678;
+    
+    /* border-bottom: 2px solid #05d9e8; */
 }
 
-hr {
-    border-color: #05d9e8;
-  }
-  
 
 h2 {
     text-align: center;
