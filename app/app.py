@@ -22,7 +22,7 @@ def index():
     if 'username' in session:
         user_calories = list(db.calories.find({"username": session['username']}, {'_id': 1, 'food': 1, 'calories': 1, 'date': 1}))
         total_calories = sum(entry['calories'] for entry in user_calories)
-        return render_template('index.html', username=session['username'], user_calories=user_calories, total_calories=total_calories)
+        return render_template('index.html', username=session['username'], user_calories=user_calories, total_calories=total_calories, user_info=session['username'])
     return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
