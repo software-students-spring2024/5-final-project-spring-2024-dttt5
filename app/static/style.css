@@ -9,6 +9,16 @@ body {
 
 h1 {
     color: #0056b3;
+    text-align: center;
+    border: 5px solid red;
+}
+
+h2 {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
 }
 
 /* Form styling */
@@ -38,18 +48,14 @@ select {
     box-sizing: border-box; /* includes padding and border in element's width */
 }
 
-button {
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
+
+
+.delEditForm {
+    padding: 0;
+    margin: 0;
+    width: 0;
+    height: 20px; 
+    
 }
 
 button:hover {
@@ -112,4 +118,39 @@ a:hover {
     border-radius: 5px;
     padding: 20px;
     display: none; /* Hidden by default */
+}
+
+.spacer {
+    height: 30px;
+}
+
+.delEditButton{
+    border-radius: 8px;
+    height: 30px;
+    margin: auto 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.addButtons {
+    width: 100%;
+    padding: 20px;
+    margin: auto 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.loginRegButton {
+    width: 100%;
+    padding: 20px;
+    margin: auto 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

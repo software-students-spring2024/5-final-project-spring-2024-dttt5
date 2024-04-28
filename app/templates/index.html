@@ -9,20 +9,28 @@
 <body>
     <h1>Calorie Tracker</h1>
     <div id="app">
+
+        <div class="spacer"></div>
+
         <p>Welcome, {{ username }}!</p>
         <form id="calorie-form" method="post" action="/calories">
+            <h3>Add Food</h3>
             <label for="food">Food:</label>
             <input type="text" id="food" name="food" required>
             <label for="calories">Calories:</label>
             <input type="number" id="calories" name="calories" required>
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
-            <button type="submit">Add Entry</button>
+            <div class="spacer"></div>
+            <button type="submit" class="addButtons">Add Food</button>
         </form>
         <!-- Optionally, show messages from Flask -->
         {% if message %}
             <div id="message">{{ message }}</div>
         {% endif %}
+
+        <div class="spacer"></div>
+        <div class="spacer"></div>
 
         <h2>Calorie Entries</h2>
         <table id="calories-table">
@@ -41,28 +49,40 @@
                     <td>{{ entry['food'] }}</td>
                     <td>{{ entry['calories'] }}</td>
                     <td>
-                        <form action="{{ url_for('delete_calorie_entry', entry_id=entry['_id']) }}" method="post">
-                            <button type="submit">Delete</button>
+                        <div class="spacer"></div>
+                        <form action="{{ url_for('delete_calorie_entry', entry_id=entry['_id']) }}" method="post" class="delEditForm">
+                            <button type="submit" class="delEditButton">Delete</button>
                         </form>
-                        <form action="{{ url_for('edit_calorie_entry', entry_id=entry['_id']) }}" method="get">
-                            <button type="submit">Edit</button>
+                        <div class="spacer"></div>
+                        <form action="{{ url_for('edit_calorie_entry', entry_id=entry['_id']) }}" method="get" class="delEditForm">
+                            <button type="submit" class="delEditButton">Edit</button>
                         </form>
+                        <div class="spacer"></div>
                     </td>
                 </tr>
                 {% endfor %}
+                
             </tbody>
         </table>
 
+        <div class="spacer"></div>
+        <div class="spacer"></div>
+
         <!-- Workout Entry Form -->
         <form id="workout-form" method="post" action="/workouts">
+            <h3>Add Workout</h3>
             <label for="description">Workout:</label>
             <input type="text" id="description" name="description" required>
             <label for="calories_burned">Calories Lost:</label>
             <input type="number" id="calories_burned" name="calories_burned" required>
             <label for="date">Date:</label>
             <input type="date" id="date" name="date" required>
-            <button type="submit">Add Workout</button>
+            <div class="spacer"></div>
+            <button type="submit" class="addButtons">Add Workout</button>
         </form>
+
+        <div class="spacer"></div>
+        <div class="spacer"></div>
 
         <h2>Workout Entries</h2>
         <table id="workouts-table">
@@ -81,17 +101,23 @@
                     <td>{{ entry['description'] }}</td>
                     <td>{{ entry['calories_burned'] }}</td>
                     <td>
-                        <form action="{{ url_for('delete_workout_entry', entry_id=entry['_id']) }}" method="post">
-                            <button type="submit">Delete</button>
+                        <div class="spacer"></div>
+                        <form action="{{ url_for('delete_workout_entry', entry_id=entry['_id']) }}" method="post" class="delEditForm">
+                            <button type="submit" class="delEditButton">Delete</button>
                         </form>
-                        <form action="{{ url_for('edit_workout_entry', entry_id=entry['_id']) }}" method="get">
-                            <button type="submit">Edit</button>
+                        <div class="spacer"></div>
+                        <form action="{{ url_for('edit_workout_entry', entry_id=entry['_id']) }}" method="get" class="delEditForm">
+                            <button type="submit" class="delEditButton">Edit</button>
                         </form>
+                        <div class="spacer"></div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+        <div class="spacer"></div>
+        <div class="spacer"></div>
 
         <div id="total-calories">Total Calories: {{ total_calories }}</div>
     </div>
