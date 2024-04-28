@@ -105,7 +105,36 @@
         </table>
 
         <div id="total-calories">Total Calories: {{ total_calories }}</div>
-        <div id="calorie-deficit">Total Calorie Deficit Needed: {{ user_info.total_calorie_deficit_needed }}</div>
+        <div id="calorie-deficit">Total Calorie Deficit Needed: {{ total_calorie_deficit_needed }}</div>
     </div>
+    <script>
+        document.getElementById('weight-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            var currentWeight = document.getElementById('current_weight').value;
+            var targetWeight = document.getElementById('target_weight').value;
+    
+            fetch('/setup_weight', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    current_weight: currentWeight,
+                    target_weight: targetWeight
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Optionally, update the UI with a success message or handle errors
+                if(data.message) {
+                    alert(data.message);
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+        </script>
 </body>
 </html>
