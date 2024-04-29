@@ -20,6 +20,8 @@
         <div class="spacer"></div>
 
         <p class="welcomeMsg">Welcome, {{ username }}!</p>
+        <div id="total-calories">Total Calories: {{ total_calories }}</div>
+        <div class="spacer"></div>
         <form id="calorie-form" method="post" action="/calories">
             <h3>Add Food</h3>
             <label for="food">Food:</label>
@@ -122,11 +124,6 @@
                 {% endfor %}
             </tbody>
         </table>
-
-        <div class="spacer"></div>
-        <div class="spacer"></div>
-
-        <div id="total-calories">Total Calories: {{ total_calories }}</div>
     </div>
 </body>
 </html>
