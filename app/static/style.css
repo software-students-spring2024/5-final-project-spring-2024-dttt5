@@ -49,14 +49,24 @@ palette:
 
 .indexHeader {
     color: #05d9e8;
+    margin-bottom: 20px;
 }
 
 #calories-table, #workouts-table {
     background-color: #01012b;
     color: #05d9e8;
 }
+
 #total-calories, #calorie-deficit {
     color: #ff2a6d;
+    background-color: #01012b; /* Dark background for contrast */
+    border: 2px solid #05d9e8; /* Sky blue border */
+    padding: 10px 20px; /* Padding for better visual spacing */
+    margin: 10px 0; /* Margin for spacing between elements */
+    border-radius: 8px; /* Rounded corners */
+    font-size: 16px; /* Slightly larger font for readability */
+    display: block; /* Ensures the block fills width, change to inline-block if needed */
+    text-align: center; /* Center align text */
 }
 
 h1 {
@@ -138,6 +148,8 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: #01012b;
+    color: #05d9e8;
 }
 
 th, td {
@@ -192,7 +204,7 @@ a:hover {
 }
 
 .spacer {
-    height: 30px;
+    height: 20px;
 }
 
 .delButton{
@@ -259,18 +271,17 @@ a:hover {
 }
 
 .logoutButton {
-    width: 100%;
+    width: 20%;          
     padding: 20px;
     background-color: #ff2a6d;
     color: #d1f7ff;
-    border: 2px solid #05d9e8;
+    border: none;        /* Ensure no border */
     border-radius: 8px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
+    margin: 0 auto;
     cursor: pointer;
     transition: background 0.3s;
 }
