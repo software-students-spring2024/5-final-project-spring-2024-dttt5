@@ -140,6 +140,14 @@ def setup_weight():
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to setup weight'}), 500
+    
+@app.route('/get-calorie-deficit')
+def get_calorie_deficit():
+    user_info = db.users.find_one({"username": session.get('username')})
+    if user_info and 'total_calorie_deficit_needed' in user_info:
+        return jsonify(calorie_deficit=user_info['total_calorie_deficit_needed'])
+    return jsonify(calorie_deficit=0)
+
 
 @app.route('/calories/delete/<entry_id>', methods=['POST'])
 def delete_calorie_entry(entry_id):

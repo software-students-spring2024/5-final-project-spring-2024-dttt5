@@ -28,18 +28,20 @@ Mongodb is used to store user data. Users can log in and out when/wherever they 
 - Python 3.9 or higher
 
 ### Install Dependencies
-Ensure Flask, etc are installed. They should be automatically installed. \
+Dependencies should be automatically installed. \
 If not:
 ```
-pip install Flask
+pip install flask pymongo python-dotenv pytest pytest-flask
 ```
 
 ### Run the Application
+Enter in your terminal
 ```
 docker-compose up --build
 ```
-It should be running at http://127.0.0.1:8080.
-
+The application should be running at http://127.0.0.1:8080.
 
 ### Shutdown the Application
-docker-compose down    
+```
+docker-compose down
+```

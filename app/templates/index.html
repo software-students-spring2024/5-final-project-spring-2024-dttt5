@@ -183,6 +183,21 @@
             })
             .catch(error => console.error('Error:', error));
         });
+
+        function updateCalorieDeficit() {
+            fetch('/get-calorie-deficit')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('calorie-deficit').innerText = 'Total Calorie Deficit Needed: ' + data.calorie_deficit;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.addButtons, .delButton, .editButton').forEach(btn => {
+                btn.addEventListener('click', updateCalorieDeficit);
+            });
+        });
         </script>
 </body>
 </html>
