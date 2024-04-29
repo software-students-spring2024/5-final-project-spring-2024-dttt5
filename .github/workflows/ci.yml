@@ -1,0 +1,37 @@
+name: Python application test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-flask
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Set Environment Variables
+      run: |
+        echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> $GITHUB_ENV
+        echo "MONGO_USERNAME=${{ secrets.MONGO_USERNAME }}" >> $GITHUB_ENV
+        echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" >> $GITHUB_ENV
+        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
+
+    - name: Test with pytest
+      run: pytest
