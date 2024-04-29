@@ -3,3 +3,4 @@ pymongo
 python-dotenv
 pytest
 pytest-flask
+bson
