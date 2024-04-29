@@ -55,7 +55,7 @@ palette:
     background-color: #01012b;
     color: #05d9e8;
 }
-#total-calories {
+#total-calories, #calorie-deficit {
     color: #ff2a6d;
 }
 
