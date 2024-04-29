@@ -29,13 +29,7 @@
             </form>
         </div>  
 
-        <div class="spacer"></div>
-
-         <h2 class="indexHeader">Your Calorie Status</h2>
-        <div id="total-calories">Total Calories: {{ total_calories }}</div>
-        <div id="calorie-deficit">Total Calorie Deficit Needed: {{ total_calorie_deficit_needed }}</div>
-
-        <div class="spacer"></div>  
+        <div class="spacer"></div> 
 
         <h2>Set Your Weight Goals</h2>
         <form id="weight-form" method="post" action="/setup_weight">
@@ -45,7 +39,17 @@
             <input type="number" id="target_weight" name="target_weight" required>
             <button type="submit" class="addButtons">Update Weight</button>
         </form>
+        <div class="spacer"></div>  
 
+        <div id="calorie-deficit">Total Calorie Deficit Needed: {{ total_calorie_deficit_needed }}</div>
+
+        <div class="spacer"></div>  
+
+        <h2 class="indexHeader">Your Calorie Status</h2>
+        <div id="total-calories">Total Calories: {{ total_calories }}</div>
+
+        <div class="spacer"></div> 
+        
         <h2>Add Calorie Entry</h2>
         <form id="calorie-form" method="post" action="/calories">
             <h3>Add Food</h3>
@@ -149,11 +153,6 @@
                 {% endfor %}
             </tbody>
         </table>
-
-        <div class="spacer"></div>
-        <div class="spacer"></div>
-
-        <div id="total-calories">Total Calories: {{ total_calories }}</div>
     </div>
     <script>
         document.getElementById('weight-form').addEventListener('submit', function(e) {
