@@ -55,3 +55,9 @@ jobs:
           echo $COMMITS > commits.json
           cat commits.json # debugging
           pipenv run gitcommitlogger -r $(echo $REPOSITORY_URL) -t $(echo $EVENT_TYPE) -i commits.json -o commit_stats.csv -u $(echo $COMMIT_LOG_API) -v
+      - name: Set Environment Variables
+        run: |
+          echo "MONGO_URI=mongodb://<username>:<password>@localhost/caloriedb" >> $GITHUB_ENV
+          echo "MONGO_USERNAME=testuser" >> $GITHUB_ENV
+          echo "MONGO_PASSWORD=testpassword" >> $GITHUB_ENV
+
