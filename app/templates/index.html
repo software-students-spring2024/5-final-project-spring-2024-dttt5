@@ -139,6 +139,14 @@
 
         <div id="total-calories">Total Calories: {{ total_calories }}</div>
         <div id="calorie-deficit">Total Calorie Deficit Needed: {{ total_calorie_deficit_needed }}</div>
+
+        <div class="spacer"></div>
+
+        <div style="margin-top: 20px; padding: 20px;"> <!-- Adjust padding and margin as needed -->
+            <form action="{{ url_for('logout') }}" method="post">
+                <button type="submit" class="logoutButton">Logout</button>
+            </form>
+        </div>        
     </div>
     <script>
         document.getElementById('weight-form').addEventListener('submit', function(e) {
