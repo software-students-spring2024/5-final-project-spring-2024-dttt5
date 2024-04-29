@@ -10,13 +10,9 @@ load_dotenv()
 
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 
-# username = os.getenv("MONGO_USERNAME")
-# password = os.getenv("MONGO_PASSWORD")
-# uri = os.getenv("MONGO_URI").replace('<username>', username).replace('<password>', password)
-username = os.getenv("MONGO_USERNAME", "default_username")
-password = os.getenv("MONGO_PASSWORD", "default_password")
-uri_template = os.getenv("MONGO_URI", "mongodb://<username>:<password>@localhost/caloriedb")
-uri = uri_template.replace('<username>', username).replace('<password>', password)
+username = os.getenv("MONGO_USERNAME")
+password = os.getenv("MONGO_PASSWORD")
+uri = os.getenv("MONGO_URI").replace('<username>', username).replace('<password>', password)
 
 client = MongoClient(uri)
 db = client['caloriedb']
