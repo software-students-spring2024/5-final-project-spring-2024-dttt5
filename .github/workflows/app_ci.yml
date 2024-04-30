@@ -26,13 +26,20 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
+    - name: Set Environment Variables
+      run: |
+        echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> $GITHUB_ENV
+        echo "MONGO_USERNAME=${{ secrets.MONGO_USERNAME }}" >> $GITHUB_ENV
+        echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" >> $GITHUB_ENV
+        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
+
     - name: Run tests
       run: |
         pip install pytest pytest-cov
         pytest --cov=./
 
     - name: Build Docker image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/app:${{ github.sha }} .
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/app:${{ github.sha }} -f app/Dockerfile app
 
     - name: Log in to DockerHub
       uses: docker/login-action@v1
