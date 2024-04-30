@@ -8,3 +8,4 @@ services:
       - MONGO_URI=${MONGO_URI}
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
+      
