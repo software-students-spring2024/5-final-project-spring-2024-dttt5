@@ -24,7 +24,16 @@ def index():
         user_workouts = list(db.workouts.find({"username": session['username']}, {'_id': 1, 'description': 1, 'calories_burned': 1, 'date': 1}))
         total_calories = sum(entry['calories'] for entry in user_calories)
         total_burned = sum(entry['calories_burned'] for entry in user_workouts)
-        return render_template('index.html', username=session['username'], user_calories=user_calories, total_calories=total_calories-total_burned, total_burned=total_burned, user_workouts=user_workouts)
+
+        user_info = db.users.find_one({"username": session['username']})
+
+        if user_info and 'total_calorie_deficit_needed' in user_info:
+            total_calorie_deficit_needed = user_info['total_calorie_deficit_needed']
+        else:
+            # not yet setup weight
+            total_calorie_deficit_needed = 0
+
+        return render_template('index.html', username=session['username'], user_calories=user_calories, total_calories=total_calories-total_burned, total_burned=total_burned, user_workouts=user_workouts, total_calorie_deficit_needed=total_calorie_deficit_needed)
     return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -56,7 +65,7 @@ def login():
         return "Invalid username or password", 401
     return render_template('login.html')
 
-@app.route('/logout')
+@app.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
@@ -67,6 +76,7 @@ def calories():
         return jsonify({'error': 'User not logged in'}), 401
 
     if request.method == 'POST':
+        user_collection = db.users
         try:
             data = {
                 "username": session['username'],
@@ -75,6 +85,16 @@ def calories():
                 "date": request.form['date']
             }
             db.calories.insert_one(data)
+
+            # get current user information for calorie management
+            user_info = user_collection.find_one({"username": session['username']})
+            if user_info and 'total_calorie_deficit_needed' in user_info:
+                base_intake = 2500
+                daily_deficit = base_intake - data['calories']
+                new_total_deficit = user_info['total_calorie_deficit_needed'] - daily_deficit
+                # Update the total calorie deficit needed
+                user_collection.update_one({"username": session['username']}, {"$set": {"total_calorie_deficit_needed": new_total_deficit}})
+
             return redirect(url_for('index'))
         except Exception as e:
             print(e)
@@ -83,6 +103,51 @@ def calories():
     else:
         user_calories = list(db.calories.find({"username": session['username']}, {'_id': 1, 'food': 1, 'calories': 1, 'date': 1}))
         return jsonify(user_calories)
+    
+@app.route('/setup_weight', methods=['GET', 'POST'])
+def setup_weight():
+    if 'username' not in session:
+        return jsonify({'error': 'User not logged in'}), 401
+
+    if not request.json or 'current_weight' not in request.json or 'target_weight' not in request.json:
+        return jsonify({'error': 'Missing data'}), 400
+    
+    if request.mimetype != 'application/json':
+        return jsonify({'error': 'Content-Type must be application/json'}), 415
+
+    try:
+        current_weight = float(request.json['current_weight'])
+        target_weight = float(request.json['target_weight'])
+        if current_weight <= 0 or target_weight <= 0:
+            raise ValueError("Weights must be positive numbers.")
+
+        total_calorie_deficit_needed = (current_weight - target_weight) * 3500
+        
+        db.users.update_one(
+            {"username": session['username']},
+            {"$set": {
+                "current_weight": current_weight,
+                "target_weight": target_weight,
+                "total_calorie_deficit_needed": total_calorie_deficit_needed
+            }}
+        )
+        return jsonify({'message': 'Weight setup updated'}), 200
+    except KeyError as ke:
+        return jsonify({'error': f'Missing key: {str(ke)}'}), 400
+    except ValueError as ve:
+        print(ve)
+        return jsonify({'error': str(ve)}), 400
+    except Exception as e:
+        print(e)
+        return jsonify({'error': 'Failed to setup weight'}), 500
+    
+@app.route('/get-calorie-deficit')
+def get_calorie_deficit():
+    user_info = db.users.find_one({"username": session.get('username')})
+    if user_info and 'total_calorie_deficit_needed' in user_info:
+        return jsonify(calorie_deficit=user_info['total_calorie_deficit_needed'])
+    return jsonify(calorie_deficit=0)
+
 
 @app.route('/calories/delete/<entry_id>', methods=['POST'])
 def delete_calorie_entry(entry_id):

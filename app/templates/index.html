@@ -20,8 +20,37 @@
         <div class="spacer"></div>
 
         <p class="welcomeMsg">Welcome, {{ username }}!</p>
-        <div id="total-calories">Total Calories: {{ total_calories }}</div>
+
         <div class="spacer"></div>
+
+        <div style="margin-top: 10px; padding: 10px;"> <!-- Adjust padding and margin as needed -->
+            <form action="{{ url_for('logout') }}" method="post">
+                <button type="submit" class="logoutButton">Logout</button>
+            </form>
+        </div>  
+
+        <div class="spacer"></div> 
+
+        <h2>Set Your Weight Goals</h2>
+        <form id="weight-form" method="post" action="/setup_weight">
+            <label for="current_weight">Current Weight:</label>
+            <input type="number" id="current_weight" name="current_weight" required>
+            <label for="target_weight">Target Weight:</label>
+            <input type="number" id="target_weight" name="target_weight" required>
+            <button type="submit" class="addButtons">Update Weight</button>
+        </form>
+        <div class="spacer"></div>  
+
+        <div id="calorie-deficit">Total Calorie Deficit Needed: {{ total_calorie_deficit_needed }}</div>
+
+        <div class="spacer"></div>  
+
+        <h2 class="indexHeader">Your Calorie Status</h2>
+        <div id="total-calories">Total Calories: {{ total_calories }}</div>
+
+        <div class="spacer"></div> 
+        
+        <h2>Add Calorie Entry</h2>
         <form id="calorie-form" method="post" action="/calories">
             <h3>Add Food</h3>
             <label for="food">Food:</label>
@@ -125,5 +154,49 @@
             </tbody>
         </table>
     </div>
+    <script>
+        document.getElementById('weight-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            var currentWeight = document.getElementById('current_weight').value;
+            var targetWeight = document.getElementById('target_weight').value;
+    
+            fetch('/setup_weight', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    current_weight: currentWeight,
+                    target_weight: targetWeight
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Optionally, update the UI with a success message or handle errors
+                if(data.message) {
+                    alert(data.message);
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        function updateCalorieDeficit() {
+            fetch('/get-calorie-deficit')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('calorie-deficit').innerText = 'Total Calorie Deficit Needed: ' + data.calorie_deficit;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.addButtons, .delButton, .editButton').forEach(btn => {
+                btn.addEventListener('click', updateCalorieDeficit);
+            });
+        });
+        </script>
 </body>
 </html>
