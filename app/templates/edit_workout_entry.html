@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Workout Entry</title>
+    <!-- <link rel="stylesheet" href="static/style.css"> -->
+    <style>
+
+
+        .updateButton {
+            width: 100%;
+            padding: 20px;
+            margin: auto 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ff2a6d;
+            border-radius: 8px;
+            font-family: Arial, Helvetica, sans-serif;
+            border: 2px solid #05d9e8;
+            color: #d1f7ff;
+            font-size: 20px;
+        }
+
+        /* General body styles */
+        body {
+            font-family: Arial, sans-serif;
+            /* background-color: #f4f4f4;
+            color: #333; */
+            margin: 0;
+            padding: 20px;
+            background-color: #01012b;
+        }
+
+        .borderHeader {
+            height: 100px;
+            width: 100vw;
+            margin: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        
+
+        .inputStyle {
+            background-color:#d1f7ff;
+            color: #005678;
+            font-family: Arial, sans-serif;
+        }
+
+        .bottomText {
+            color: #d1f7ff;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 
+        palette: 
+        #ff2a6d
+        #d1f7ff
+        #05d9e8
+        #005678
+        #01012b
+        */
+
+        .welcomeMsg{
+            color: #ff2a6d;
+            font-size: 40px;
+            font-family: Arial, sans-serif;
+        }
+
+        .indexHeader {
+            color: #05d9e8;
+        }
+
+        #calories-table, #workouts-table {
+            background-color: #01012b;
+            color: #05d9e8;
+        }
+        #total-calories {
+            color: #ff2a6d;
+        }
+
+
+        h1 {
+            color: #05d9e8;
+            text-align: center;
+            /* border: 3px double #ff2a6d; */
+            /* text-shadow: 2px 0 #05d9e8, -2px 0 #05d9e8, 0 2px #05d9e8, 0 -2px #05d9e8,
+                    1px 1px #05d9e8, -1px -1px #05d9e8, 1px -1px #05d9e8, -1px 1px #05d9e8;
+                    background: rgb(0,86,120);
+                    background: radial-gradient(circle, rgba(0,86,120,1) 50%, rgba(1,1,43,1) 100%);  */
+            /* letter-spacing: 3px; */
+            margin: auto 0;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #005678;
+            
+            /* border-bottom: 2px solid #05d9e8; */
+        }
+
+        h2 {
+            text-align: center;
+            color: #005678;
+
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        /* Form styling */
+        form {
+            background: #05d9e8;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #ccc;
+            color: #005678;
+            opacity: 90%;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box; /* includes padding and border in element's width */
+        }
+
+
+
+        .delEditForm {
+            padding: 0;
+            margin: 0;
+            width: 0;
+            height: 20px; 
+            
+        }
+
+        button:hover {
+            background-color: #005678;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #005678;
+        }
+
+        th {
+            background-color: #005678;
+        }
+
+        /* Utility classes */
+        .hidden {
+            display: none;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        /* Links */
+        a {
+            color: #ff2a6d;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+
+        .spacer {
+            height: 30px;
+        }
+
+
+
+                
+            </style>
+</head>
+<body>
+    <div class="borderHeader">
+        <h1>Calorie Tracker</h1>
+    </div>
+
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+
+    
+    <h2 class="indexHeader">Edit Workout Entry</h2>
+    <div id="app">
+        <form method="post" action="{{ url_for('edit_workout_entry', entry_id=entry['_id']) }}">
+            <label for="description">Description:</label>
+            <input type="text" class="inputStyle" id="description" name="description" required value="{{ entry['description'] }}">
+
+            <label for="calories_burned">Calories Burned:</label>
+            <input type="number" class="inputStyle" id="calories_burned" name="calories_burned" required value="{{ entry['calories_burned'] }}">
+
+            <label for="date">Date:</label>
+            <input type="date" class="inputStyle" id="date" name="date" required value="{{ entry['date'] }}">
+            <div class="spacer"></div>
+            <button type="submit" class="updateButton">Update Entry</button>
+        </form>
+    </div>
+</body>
+</html>
