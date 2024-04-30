@@ -58,4 +58,4 @@ jobs:
         password: ${{ secrets.DROPLET_PASSWORD }}
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/app:${{ github.sha }}
-          docker-compose -f /path/to/your/docker-compose.yml up -d
+          docker-compose -f root/myapp/docker-compose.yml up -d
