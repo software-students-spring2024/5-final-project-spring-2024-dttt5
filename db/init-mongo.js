@@ -22,3 +22,4 @@ db.users.updateMany(
 
 db.createCollection("users");
 db.createCollection("calories");
+
