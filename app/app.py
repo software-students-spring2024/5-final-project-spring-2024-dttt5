@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 load_dotenv()
-
+#should work now with git
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 
 username = os.getenv("MONGO_USERNAME")
