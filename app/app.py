@@ -110,8 +110,8 @@ def setup_weight():
         return jsonify({'error': 'User not logged in'}), 401
 
     try:
-        current_weight = float(request.form['current_weight'])
-        target_weight = float(request.form['target_weight'])
+        current_weight = float(request.json['current_weight'])
+        target_weight = float(request.json['target_weight'])
         if current_weight <= 0 or target_weight <= 0:
             raise ValueError("Weights must be positive numbers.")
 
