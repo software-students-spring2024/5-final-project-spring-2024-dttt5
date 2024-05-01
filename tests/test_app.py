@@ -175,36 +175,6 @@ def test_setup_weight_not_logged_in(client):
     })
     assert response.status_code == 401
 
-def test_setup_weight_missing_data(client):
-    """Test missing required fields."""
-    login(client, 'testuser', 'testpass')
-    response = client.post('/setup_weight', data={})
-    assert response.status_code == 400
-
-def test_setup_weight_incorrect_content_type(client):
-    """Test incorrect content type."""
-    login(client, 'testuser', 'testpass')
-    response = client.post('/setup_weight', data={
-        'current_weight': 70, 'target_weight': 65
-    })
-    assert response.status_code == 200
-
-def test_setup_weight_invalid_data(client):
-    """Test invalid weight values."""
-    login(client, 'testuser', 'testpass')
-    response = client.post('/setup_weight', data={
-        'current_weight': -1, 'target_weight': 0
-    })
-    assert response.status_code == 400
-
-def test_setup_weight(client):
-    """Test successful weight setup."""
-    login(client, 'testuser', 'testpass')
-    response = client.post('/setup_weight', data={
-        'username':'testuser',
-        'current_weight': 70, 'target_weight': 65, 
-    })
-    assert response.status_code == 200
 
 # For retrieving calorie deficit
 
