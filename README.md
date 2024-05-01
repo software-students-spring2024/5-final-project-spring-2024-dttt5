@@ -20,13 +20,6 @@ This project is a fitness journal app that helps users manage their weight loss 
 ### System Requirements
 - Python 3.9 or higher
 
-### Install Dependencies
-Dependencies should be automatically installed.  
-If not:
-```
-pip install flask pymongo python-dotenv pytest pytest-flask Werkzeug pytest-mock
-```
-
 ### Run the Application
 
 #### 1. Initialize
@@ -48,6 +41,12 @@ You can add your previous meals. Enter food, calorie, date, and click **Add Food
 You can add your workouts. Enter workout name, calorie, date and click **Add Workout** button. The entries will show in the workout entries table where you can edit or delete the entries.
 
 ### Run the Application (locally)
+Dependencies should be automatically installed.  
+If not:
+```
+pip install flask pymongo python-dotenv pytest pytest-flask Werkzeug pytest-mock
+```
+
 Enter in your terminal:
 ```
 docker compose up --build
