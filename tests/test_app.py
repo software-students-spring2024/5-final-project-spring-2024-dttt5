@@ -100,3 +100,14 @@ def test_register(client):
         }, follow_redirects=True)
         assert response.status_code == 200
         assert b'Redirecting' in response.data  # Check if the user is redirected to the login page
+
+def test_logout(client):
+    """Test logout functionality."""
+    login(client, 'testuser', 'testpass')
+    with client.session_transaction() as sess:
+        assert 'username' in sess
+    response = logout(client)
+    assert response.status_code == 302
+    assert url_for('login') in response.headers['Location']
+    with client.session_transaction() as sess:
+        assert 'username' not in sess
