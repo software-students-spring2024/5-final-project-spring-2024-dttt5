@@ -147,7 +147,7 @@
             e.preventDefault(); // Prevent the default form submission
             var currentWeight = document.getElementById('current_weight').value;
             var targetWeight = document.getElementById('target_weight').value;
-    
+
             fetch('/setup_weight', {
                 method: 'POST',
                 headers: {
