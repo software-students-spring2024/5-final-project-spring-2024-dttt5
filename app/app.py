@@ -105,13 +105,19 @@ def calories():
         return jsonify(user_calories)
     
 @app.route('/setup_weight', methods=['GET', 'POST'])
-def setup_weight():
+def setup_weiaght():
     if 'username' not in session:
         return jsonify({'error': 'User not logged in'}), 401
 
+    if not request.json or 'current_weight' not in request.json or 'target_weight' not in request.json:
+        return jsonify({'error': 'Missing data'}), 400
+    
+    if request.mimetype != 'application/json':
+        return jsonify({'error': 'Content-Type must be application/json'}), 415
+
     try:
-        current_weight = float(request.form['current_weight'])
-        target_weight = float(request.form['target_weight'])
+        current_weight = float(request.json['current_weight'])
+        target_weight = float(request.json['target_weight'])
         if current_weight <= 0 or target_weight <= 0:
             raise ValueError("Weights must be positive numbers.")
 
