@@ -44,7 +44,7 @@ You can add your workouts. Enter workout name, calorie, date and click **Add Wor
 Dependencies should be automatically installed.  
 If not:
 ```
-pip install flask pymongo python-dotenv pytest pytest-flask Werkzeug pytest-mock
+pip install flask pymongo python-dotenv pytest pytest-flask Werkzeug pytest-mock pytest-cov
 ```
 
 Enter in your terminal:
@@ -56,6 +56,12 @@ docker compose up --build
 Enter in your terminal:
 ```
 docker-compose down
+```
+
+### Unit Test Coverage
+Unit test coverage should already be displayed automatically. If it doesn't, from the root dir, please run:
+```
+pytest --cov=./
 ```
 
 ## Link to Dockerhub Container Images
