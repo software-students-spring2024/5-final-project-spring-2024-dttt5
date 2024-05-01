@@ -89,3 +89,14 @@ def test_edit_workout_entry(client):
     login(client, 'testuser', 'testpass')
     entry_id = ObjectId()  # Mock an entry ID
     response = client
+
+def test_register(client):
+    """Test the registration functionality."""
+    with patch('app.app.db.users.find_one') as mock_find_one:
+        mock_find_one.return_value = None  # Simulate that the username doesn't exist
+        response = client.post('/register', data={
+            'username': 'newuser',
+            'password': 'newpassword'
+        }, follow_redirects=True)
+        assert response.status_code == 200
+        assert b'Redirecting' in response.data  # Check if the user is redirected to the login page
