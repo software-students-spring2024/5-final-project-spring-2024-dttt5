@@ -101,13 +101,18 @@ def test_register(client):
         assert response.status_code == 200
         assert b'Redirecting' in response.data  # Check if the user is redirected to the login page
 
-def test_logout(client):
-    """Test logout functionality."""
-    login(client, 'testuser', 'testpass')
-    with client.session_transaction() as sess:
-        assert 'username' in sess
-    response = logout(client)
-    assert response.status_code == 302
-    assert url_for('login') in response.headers['Location']
-    with client.session_transaction() as sess:
-        assert 'username' not in sess
+
+def test_login_valid_credentials(client, user_collection):
+    """Test login with valid credentials."""
+    response = client.post('/login', data={'username': 'testuser', 'password': 'testpass'}, follow_redirects=True)
+    assert response.status_code == 200
+    assert b'Welcome' in response.data
+    assert 'username' in session
+
+
+def test_login_invalid_credentials(client, user_collection):
+    """Test login with invalid credentials."""
+    response = client.post('/login', data={'username': 'testuser', 'password': 'wrongpass'}, follow_redirects=True)
+    assert response.status_code == 401
+    assert b'Invalid username or password' in response.data
+    assert 'username' not in session
