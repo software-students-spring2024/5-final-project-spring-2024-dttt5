@@ -186,7 +186,7 @@ a:hover {
     width: 20px;
 }
 
-.delButton, .editButton, .addButtons, .loginRegButton, .logoutButton {
+.addButtons, .loginRegButton, .logoutButton {
     border-radius: 8px;
     padding: 10px;
     text-align: center;
@@ -197,6 +197,20 @@ a:hover {
     /* margin: 5px 0; */
     cursor: pointer;
     transition: background-color 0.3s;
+}
+
+.delButton, .editButton {
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    background-color: #005678;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    font-size: 16px;
+    /* margin: 5px 0; */
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: -60px;
     
 }
 
@@ -216,9 +230,9 @@ a:hover {
 /* ///////////////////////////////////// */
 .delEditForm { 
    background-color: transparent;
-
    box-shadow: none;
-
+   width: 10px;
+   
 }
 
   /* animated background end. Sourced from wweb.dev*/
