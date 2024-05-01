@@ -203,6 +203,10 @@ a:hover {
     margin: 0 auto; /* Centers the button */
 }
 
+.delete_edit_parent {
+    display: flex;
+}   
+
 .logoutButton:hover, .delButton:hover, .editButton:hover, .addButtons:hover, .loginRegButton:hover {
     background-color: #004052; /* Darker shade of blue for hover effect */
 }
