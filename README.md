@@ -32,7 +32,7 @@ Click **Register Here** button to register. Enter username and password, and cli
 You can see your calorie status, logout, set your weight goals, add calorie and workout entries.
 
 #### 4. Set Your Weight Goals (Optional)
-You can set your weight goals to check total calorie deficit needed to reach the target weight. The value is calculated with your current and target weight.
+You can set your weight goals to check total calorie deficit needed to reach the target weight. The value is calculated with your current and target weight. (Note: Only for this feature will you need to refresh the page to see it update)
 
 #### 5. Add Calorie Entries
 You can add your previous meals. Enter food, calorie, date, and click **Add Food** button. The entires will show in the calorie entries table where you can edit or delete the entries.
