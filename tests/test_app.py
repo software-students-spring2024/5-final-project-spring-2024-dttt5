@@ -89,3 +89,47 @@ def test_edit_workout_entry(client):
     login(client, 'testuser', 'testpass')
     entry_id = ObjectId()  # Mock an entry ID
     response = client
+
+
+
+def test_setup_weight_valid(client):
+    """Test setting weight with valid data."""
+    login(client, 'testuser', 'testpass')  # Ensure the user is logged in
+    response = client.post('/setup_weight', json={
+        'current_weight': 180,
+        'target_weight': 160
+    }, follow_redirects=True)
+    assert response.status_code == 200
+    assert b'Weight setup updated' in response.data  # Check for a success message or similar response
+
+def test_setup_weight_invalid_data(client):
+    """Test setting weight with invalid data (negative numbers)."""
+    login(client, 'testuser', 'testpass')
+    response = client.post('/setup_weight', json={
+        'current_weight': -180,
+        'target_weight': 160
+    }, follow_redirects=True)
+    assert response.status_code == 400  # Bad request due to invalid input
+    assert b'error' in response.data  # Check for an error message
+
+def test_setup_weight_unauthenticated(client):
+    """Test setting weight without being logged in."""
+    response = client.post('/setup_weight', json={
+        'current_weight': 180,
+        'target_weight': 160
+    }, follow_redirects=True)
+    assert response.status_code == 401  # Unauthorized or redirect to login
+
+
+def test_get_calorie_deficit_logged_in(client):
+    """Test fetching the calorie deficit when logged in."""
+    login(client, 'testuser', 'testpass')  # Ensure the user is logged in
+    response = client.get('/get-calorie-deficit')
+    assert response.status_code == 200
+    # Assuming the response should include a JSON with the calorie deficit
+    assert 'calorie_deficit' in response.get_json()
+
+def test_get_calorie_deficit_not_logged_in(client):
+    """Test fetching the calorie deficit when not logged in."""
+    response = client.get('/get-calorie-deficit')
+    assert response.status_code == 401  # Expecting an unauthorized status
