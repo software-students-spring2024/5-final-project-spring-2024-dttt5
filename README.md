@@ -47,7 +47,13 @@ You can add your previous meals. Enter food, calorie, date, and click **Add Food
 #### 6. Add Workout Entries
 You can add your workouts. Enter workout name, calorie, date and click **Add Workout** button. The entries will show in the workout entries table where you can edit or delete the entries.
 
-### Shutdown the Application
+### Run the Application (locally)
+Enter in your terminal:
+```
+docker compose up --build
+```
+
+### Shutdown the Application (locally)
 Enter in your terminal:
 ```
 docker-compose down
