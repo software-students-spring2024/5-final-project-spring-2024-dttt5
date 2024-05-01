@@ -1,9 +1,9 @@
 /* General body styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #01012b;
+    background-color: #f4f4f4;
 }
 
 .borderHeader {
@@ -14,90 +14,103 @@ body {
     top: 0;
     left: 0;
     z-index: 999;
-    
-  }
-  
-  
+    background-color: #ffffff; /* White for a cleaner look */
+    border-bottom: 2px solid #005678;
+}
+
+
+/* Layout containers for columns */
+.container {
+    display: flex;
+    flex-direction: row;
+    padding-top: 120px; /* Space for fixed header */
+}
+
+.left-column, .right-column {
+    flex: 1;
+    padding: 10px;
+}
+
+.form-section, .table-section {
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+}
 
 .inputStyle {
-    background-color:#d1f7ff;
-    color: #005678;
-    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid #ccc;
 }
 
 .bottomText {
-    color: #d1f7ff;
-    font-family: Arial, sans-serif;
+    color: #333333;
+    font-family: 'Roboto', sans-serif;
 }
 
-/* 
-palette: 
-#ff2a6d
-#d1f7ff
-#05d9e8
-#005678
-#01012b
-*/
-
-.welcomeMsg{
-    color: #faa7c1;
+.welcomeMsg {
+    color: #005678;
     font-size: 40px;
-    font-family: Arial, sans-serif;
-    text-shadow: 2px 0 #ff2a6d, -2px 0 #ff2a6d, 0 2px #ff2a6d, 0 -2px #ff2a6d,
-    1px 1px #ff2a6d, -1px -1px #ff2a6d, 1px -1px #ff2a6d, -1px 1px #ff2a6d;
+    font-family: 'Roboto', sans-serif;
 }
 
 .indexHeader {
-    color: #05d9e8;
+    color: #005678;
+    margin-bottom: 20px;
 }
 
 #calories-table, #workouts-table {
-    background-color: #01012b;
-    color: #05d9e8;
+    background-color: #ffffff;
+    color: #333333;
 }
-#total-calories {
-    color: #ff2a6d;
+
+#total-calories, #calorie-deficit {
+    color: #005678;
+    background-color: #ffffff;
+    border: 2px solid #005678;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 8px;
+    font-size: 16px;
+    display: block;
+    text-align: center;
 }
 
 h1 {
-    color: #05d9e8;
-    text-align: center;
-    /* border: 3px double #ff2a6d; */
-    /* text-shadow: 2px 0 #05d9e8, -2px 0 #05d9e8, 0 2px #05d9e8, 0 -2px #05d9e8,
-               1px 1px #05d9e8, -1px -1px #05d9e8, 1px -1px #05d9e8, -1px 1px #05d9e8;
-               background: rgb(0,86,120);
-               background: radial-gradient(circle, rgba(0,86,120,1) 50%, rgba(1,1,43,1) 100%);  */
-    /* letter-spacing: 3px; */
-    margin: auto 0;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: #ccc;
+    background-color: #0d1235;
     padding: 20px;
-    background-color: #005678;
-    
-    /* border-bottom: 2px solid #05d9e8; */
+    margin: auto;
+    text-align: center;
 }
-
 
 h2 {
     text-align: center;
     color: #005678;
-
 }
 
 h3 {
     text-align: center;
+    color: #333333;
 }
 
 /* Form styling */
 form {
-    background: #05d9e8;
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px #ccc;
-    color: #005678;
-    opacity: 90%;
+    color: #333333;
 }
 
 label {
@@ -106,31 +119,17 @@ label {
     margin-bottom: 5px;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="number"],
-input[type="date"],
-select {
+input[type="text"], input[type="password"], input[type="number"], input[type="date"], select {
     width: 100%;
     padding: 8px;
     margin-bottom: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
-    box-sizing: border-box; /* includes padding and border in element's width */
-}
-
-
-
-.delEditForm {
-    padding: 0;
-    margin: 0;
-    width: 0;
-    height: 20px; 
-    
 }
 
 button:hover {
     background-color: #005678;
+    color: #ffffff;
 }
 
 /* Table styling */
@@ -138,44 +137,39 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    background-color: #ffffff;
+    color: #333333;
 }
 
 th, td {
     text-align: left;
     padding: 12px;
-    border-bottom: 1px solid #005678;
+    border-bottom: 1px solid #ccc;
 }
 
 th {
     background-color: #005678;
-}
-
-/* Utility classes */
-.hidden {
-    display: none;
-}
-
-.center {
-    text-align: center;
+    color: #ffffff;
 }
 
 /* Links */
 a {
-    color: #ff2a6d;
+    color: #005678;
 }
 
 a:hover {
     text-decoration: underline;
+    color: #333333;
 }
 
 /* Messages and popups */
-#message {
-    background-color: #dff0d8;
-    color: #3c763d;
+#message, #popup {
+    background-color: #ffffff;
+    color: #333333;
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 4px;
-    border: 1px solid #d6e9c6;
+    border: 1px solid #ccc;
 }
 
 #popup {
@@ -184,93 +178,34 @@ a:hover {
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
     display: none; /* Hidden by default */
 }
 
 .spacer {
-    height: 30px;
+    height: 20px;
 }
 
-.delButton{
+.delButton, .editButton, .addButtons, .loginRegButton, .logoutButton {
     border-radius: 8px;
-    height: 30px;
-    margin: auto 0;
+    padding: 10px;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ff2a6d;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 2px solid #05d9e8;
-    color: #d1f7ff;
-    width: 70px;
+    background-color: #005678;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    font-size: 16px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.editButton{
-    border-radius: 8px;
-    height: 30px;
-    margin: auto 0;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #01012b;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 2px solid #05d9e8;
-    color: #d1f7ff;
-    width: 70px;
-    
+.logoutButton {
+    width: 20%;
+    margin: 0 auto; /* Centers the button */
 }
 
-.addButtons {
-    width: 100%;
-    padding: 20px;
-    margin: auto 0;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ff2a6d;
-    border-radius: 8px;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 2px solid #05d9e8;
-    color: #d1f7ff;
-    font-size: 20px;
-  }
-  
-.loginRegButton {
-    width: 100%;
-    padding: 20px;
-    margin: auto 0;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #ff2a6d;
-    border-radius: 8px;
-    font-family: Arial, Helvetica, sans-serif;
-    border: 2px solid #05d9e8;
-    color: #d1f7ff;
-    font-size: 20px;
+.logoutButton:hover, .delButton:hover, .editButton:hover, .addButtons:hover, .loginRegButton:hover {
+    background-color: #004052; /* Darker shade of blue for hover effect */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   /* animated background end. Sourced from wweb.dev*/
   @keyframes move {

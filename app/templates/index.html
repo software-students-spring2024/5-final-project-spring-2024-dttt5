@@ -3,127 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calorie Tracker</title>
+    <title>Fitness Journal</title>
     <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
     <div class="borderHeader">
-        <h1>Calorie Tracker</h1>
+        <h1>Fitness Journal</h1>
     </div>
 
-    <div class="spacer"></div>
-    <div class="spacer"></div>
-        
+    <div class="container">
+        <div class="left-column">
+            <p class="welcomeMsg">Welcome, {{ username }}!</p>
+            <div class="spacer"></div>
+            <div style="margin-top: 10px; padding: 10px;"> <!-- Adjust padding and margin as needed -->
+                <form action="{{ url_for('logout') }}" method="post">
+                    <button type="submit" class="logoutButton">Logout</button>
+                </form>
+            </div>  
+
+            <div class="spacer"></div> 
+            <div class="form-section">
+                <h2>Set Your Weight Goals</h2>
+                <form id="weight-form" method="post" action="/setup_weight">
+                    <label for="current_weight">Current Weight:</label>
+                    <input type="number" id="current_weight" name="current_weight" required>
+                    <label for="target_weight">Target Weight:</label>
+                    <input type="number" id="target_weight" name="target_weight" required>
+                    <button type="submit" class="addButtons">Update Weight</button>
+                </form>
+                <div id="calorie-deficit">Total Calorie Deficit Needed: {{ total_calorie_deficit_needed }}</div>
+            </div>
+
+            <div class="form-section">
+                <h2>Add Calorie Entry</h2>
+                <form id="calorie-form" method="post" action="/calories">
+                    <h3>Add Food</h3>
+                    <label for="food">Food:</label>
+                    <input type="text" class="inputStyle" id="food" name="food" required>
+                    <label for="calories">Calories:</label>
+                    <input type="number" class="inputStyle" id="calories" name="calories" required>
+                    <label for="date">Date:</label>
+                    <input type="date" class="inputStyle" id="date" name="date" required>
+                    <button type="submit" class="addButtons">Add Food</button>
+                </form>
+            </div>
+
+            <div class="form-section">
+                <h2>Add Workout Entry</h2>
+                <form id="workout-form" method="post" action="/workouts">
+                    <h3>Add Workout</h3>
+                    <label for="description">Workout:</label>
+                    <input type="text" class="inputStyle" id="description" name="description" required>
+                    <label for="calories_burned">Calories Lost:</label>
+                    <input type="number" class="inputStyle" id="calories_burned" name="calories_burned" required>
+                    <label for="date">Date:</label>
+                    <input type="date" class="inputStyle" id="date" name="date" required>
+                    <button type="submit" class="addButtons">Add Workout</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="table-section">
+                <h2>Your Calorie Status</h2>
+                <div id="total-calories">Total Calories: {{ total_calories }}</div>
+            </div>
+
+            <div class="table-section">
+                <h2>Calorie Entries</h2>
+                <table id="calories-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Food</th>
+                            <th>Calories</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in user_calories %}
+                        <tr>
+                            <td>{{ entry['date'] }}</td>
+                            <td>{{ entry['food'] }}</td>
+                            <td>{{ entry['calories'] }}</td>
+                            <td>
+                                <form action="{{ url_for('delete_calorie_entry', entry_id=entry['_id']) }}" method="post" class="delEditForm">
+                                    <button type="submit" class="delButton">Delete</button>
+                                </form>
+                                <form action="{{ url_for('edit_calorie_entry', entry_id=entry['_id']) }}" method="get" class="delEditForm">
+                                    <button type="submit" class="editButton">Edit</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-section">
+                <h2>Workout Entries</h2>
+                <table id="workouts-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Calories Burned</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entry in user_workouts %}
+                        <tr>
+                            <td>{{ entry['date'] }}</td>
+                            <td>{{ entry['description'] }}</td>
+                            <td>{{ entry['calories_burned'] }}</td>
+                            <td>
+                                <form action="{{ url_for('delete_workout_entry', entry_id=entry['_id']) }}" method="post" class="delEditForm">
+                                    <button type="submit" class="delButton">Delete</button>
+                                </form>
+                                <form action="{{ url_for('edit_workout_entry', entry_id=entry['_id']) }}" method="get" class="delEditForm">
+                                    <button type="submit" class="editButton">Edit</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('weight-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+            var currentWeight = document.getElementById('current_weight').value;
+            var targetWeight = document.getElementById('target_weight').value;
     
-    <div id="app">
+            fetch('/setup_weight', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    current_weight: currentWeight,
+                    target_weight: targetWeight
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Optionally, update the UI with a success message or handle errors
+                if(data.message) {
+                    alert(data.message);
+                } else {
+                    alert(data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
 
-        <div class="spacer"></div>
+        function updateCalorieDeficit() {
+            fetch('/get-calorie-deficit')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('calorie-deficit').innerText = 'Total Calorie Deficit Needed: ' + data.calorie_deficit;
+            })
+            .catch(error => console.error('Error:', error));
+        }
 
-        <p class="welcomeMsg">Welcome, {{ username }}!</p>
-        <div id="total-calories">Total Calories: {{ total_calories }}</div>
-        <div class="spacer"></div>
-        <form id="calorie-form" method="post" action="/calories">
-            <h3>Add Food</h3>
-            <label for="food">Food:</label>
-            <input type="text" class="inputStyle" id="food" name="food" required>
-            <label for="calories">Calories:</label>
-            <input type="number" class="inputStyle" id="calories" name="calories" required>
-            <label for="date">Date:</label>
-            <input type="date" class="inputStyle" id="date" name="date" required>
-            <div class="spacer"></div>
-            <button type="submit" class="addButtons">Add Food</button>
-        </form>
-        <!-- Optionally, show messages from Flask -->
-        {% if message %}
-            <div id="message">{{ message }}</div>
-        {% endif %}
-
-        <div class="spacer"></div>
-        <div class="spacer"></div>
-
-        <h2 class="indexHeader">Calorie Entries</h2>
-        <table id="calories-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Food</th>
-                    <th>Calories</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in user_calories %}
-                <tr>
-                    <td>{{ entry['date'] }}</td>
-                    <td>{{ entry['food'] }}</td>
-                    <td>{{ entry['calories'] }}</td>
-                    <td>
-                        <div class="spacer"></div>
-                        <form action="{{ url_for('delete_calorie_entry', entry_id=entry['_id']) }}" method="post" class="delEditForm">
-                            <button type="submit" class="delButton">Delete</button>
-                        </form>
-                        <div class="spacer"></div>
-                        <form action="{{ url_for('edit_calorie_entry', entry_id=entry['_id']) }}" method="get" class="delEditForm">
-                            <button type="submit" class="editButton">Edit</button>
-                        </form>
-                        <div class="spacer"></div>
-                    </td>
-                </tr>
-                {% endfor %}
-                
-            </tbody>
-        </table>
-
-        <div class="spacer"></div>
-        <div class="spacer"></div>
-
-        <!-- Workout Entry Form -->
-        <form id="workout-form" method="post" action="/workouts">
-            <h3>Add Workout</h3>
-            <label for="description">Workout:</label>
-            <input type="text" class="inputStyle" id="description" name="description" required>
-            <label for="calories_burned">Calories Lost:</label>
-            <input type="number" class="inputStyle" id="calories_burned" name="calories_burned" required>
-            <label for="date">Date:</label>
-            <input type="date" class="inputStyle" id="date" name="date" required>
-            <div class="spacer"></div>
-            <button type="submit" class="addButtons">Add Workout</button>
-        </form>
-
-        <div class="spacer"></div>
-        <div class="spacer"></div>
-
-        <h2 class="indexHeader">Workout Entries</h2>
-        <table id="workouts-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Calories Burned</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for entry in user_workouts %}
-                <tr>
-                    <td>{{ entry['date'] }}</td>
-                    <td>{{ entry['description'] }}</td>
-                    <td>{{ entry['calories_burned'] }}</td>
-                    <td>
-                        <div class="spacer"></div>
-                        <form action="{{ url_for('delete_workout_entry', entry_id=entry['_id']) }}" method="post" class="delEditForm">
-                            <button type="submit" class="delButton">Delete</button>
-                        </form>
-                        <div class="spacer"></div>
-                        <form action="{{ url_for('edit_workout_entry', entry_id=entry['_id']) }}" method="get" class="delEditForm">
-                            <button type="submit" class="editButton">Edit</button>
-                        </form>
-                        <div class="spacer"></div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.addButtons, .delButton, .editButton').forEach(btn => {
+                btn.addEventListener('click', updateCalorieDeficit);
+            });
+        });
+        </script>
 </body>
 </html>
