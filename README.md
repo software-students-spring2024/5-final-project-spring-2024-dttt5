@@ -24,7 +24,7 @@ This project is a fitness journal app that helps users manage their weight loss 
 Dependencies should be automatically installed.  
 If not:
 ```
-pip install flask pymongo python-dotenv pytest pytest-flask
+pip install flask pymongo python-dotenv pytest pytest-flask Werkzeug pytest-mock
 ```
 
 ### Run the Application
