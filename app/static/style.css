@@ -193,7 +193,7 @@ a:hover {
     color: #ffffff;
     border: 2px solid #ffffff;
     font-size: 16px;
-    margin: 5px 0;
+    /* margin: 5px 0; */
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -209,6 +209,11 @@ a:hover {
 
 .logoutButton:hover, .delButton:hover, .editButton:hover, .addButtons:hover, .loginRegButton:hover {
     background-color: #004052; /* Darker shade of blue for hover effect */
+}
+
+.delEditForm {
+   width: 0px;
+   height: 0px;
 }
 
   /* animated background end. Sourced from wweb.dev*/
