@@ -116,7 +116,7 @@ def setup_weight():
             raise ValueError("Weights must be positive numbers.")
 
         total_calorie_deficit_needed = (current_weight - target_weight) * 3500
-        
+
         db.users.update_one(
             {"username": session['username']},
             {"$set": {
@@ -134,7 +134,7 @@ def setup_weight():
     except Exception as e:
         print(e)
         return jsonify({'error': 'Failed to setup weight'}), 500
-    
+        
 @app.route('/get-calorie-deficit')
 def get_calorie_deficit():
     user_info = db.users.find_one({"username": session.get('username')})
