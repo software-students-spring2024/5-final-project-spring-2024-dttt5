@@ -183,6 +183,7 @@ a:hover {
 
 .spacer {
     height: 20px;
+    width: 20px;
 }
 
 .delButton, .editButton, .addButtons, .loginRegButton, .logoutButton {
@@ -196,6 +197,7 @@ a:hover {
     /* margin: 5px 0; */
     cursor: pointer;
     transition: background-color 0.3s;
+    
 }
 
 .logoutButton {
@@ -211,9 +213,13 @@ a:hover {
     background-color: #004052; /* Darker shade of blue for hover effect */
 }
 
-.delEditForm {
+/* ///////////////////////////////////// */
+.delEditForm { 
    width: 0px;
    height: 0px;
+   background-color: transparent;
+
+
 }
 
   /* animated background end. Sourced from wweb.dev*/
