@@ -34,5 +34,4 @@ jobs:
         echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
 
     - name: Test with pytest
-      run: pip install pytest pytest-cov
       run: pytest --cov=./
