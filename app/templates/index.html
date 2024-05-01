@@ -87,6 +87,7 @@
                             <td>{{ entry['food'] }}</td>
                             <td>{{ entry['calories'] }}</td>
                             <td>
+                                <div class="delete_edit_parent"></div>
                                 <form action="{{ url_for('delete_calorie_entry', entry_id=entry['_id']) }}" method="post" class="delEditForm">
                                     <button type="submit" class="delButton">Delete</button>
                                 </form>
